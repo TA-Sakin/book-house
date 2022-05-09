@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Elite",
+    "price": "999",
+    "description": "I do photoshoot in different locations and toportfolio-level artistic post-editing with complex retouching.",
+    "list_1": "100 ready-to-print photographs",
+    "list_2": "100 Internet-format photographs",
+    "list_3": "9 hours of shooting",
+    "img": "https://i.ibb.co/KqDmQND/gallery-9.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Premium",
+    "price": "499",
+    "description": "I do photoshoot in different locations and toportfolio-level artistic post-editing with complex retouching.",
+    "list_1": "50 ready-to-print photographs",
+    "list_2": "50 Internet-format photographs",
+    "list_3": "5 hours of shooting",
+    "img": "https://i.ibb.co/RPbwFyb/gallery-8.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Standard",
+    "price": "199",
+    "description": "I do photoshoot in different locations and toportfolio-level artistic post-editing with complex retouching.",
+    "list_1": "20 ready-to-print photographs",
+    "list_2": "20 Internet-format photographs",
+    "list_3": "2 hours of shooting",
+    "img": "https://i.ibb.co/WBvMVTH/gallery-5.jpg"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "name": "The Road to Mecca",
+    "description": "In this extraordinary and beautifully-written autobiography, Asad tells of his initial rejection of all institutional religions, his entree into Taoism, his fascinating travels as a diplomat, and finally his embrace of Islam.",
+    "price": 17.95,
+    "quantity": 10,
+    "supplier": "Fons Vitae",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1442094773l/23638352._SY475_.jpg"
+  },
+  {
+    "name": "Aurangzeb: The Man and the Myth",
+    "description": "In this bold and captivating biography, Audrey Truschke enters the public debate with a fresh look at the controversial Mughal emperor.",
+    "price": 19.99,
+    "quantity": 25,
+    "supplier": "Penguin Random House India",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1505059365l/34265228.jpg"
+  },
+  {
+    "name": "The Sealed Nectar | Biography of Prophet Muhammad (SAW)",
+    "description": "A complete authoritative book on the life of Prophet Muhammad (S) by Sheikh Safiur-Rahman al-Mubarkpuri. It was honored by the World Muslim League as first prize winner book.",
+    "price": 53.0,
+    "quantity": 13,
+    "supplier": "Darussalam Publishers",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1332845361l/432539.jpg"
+  },
+  {
+    "name": "Never Split the Difference: Negotiating As If Your Life Depended On It",
+    "description": "A former international hostage negotiator for the FBI offers a new, field-tested approach to high-stakes negotiations―whether in the boardroom or at home.",
+    "price": 17.99,
+    "quantity": 16,
+    "supplier": "Harper Business",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1460910517l/26156469.jpg"
+  },
+  {
+    "name": "The One Minute Manager",
+    "description": "The One Minute Manager is a concise, easily read story that reveals three very practical secrets: One Minute Goals, One Minute Praisings, and One Minute Reprimands.",
+    "price": 8.55,
+    "quantity": 52,
+    "supplier": "William Morrow & Company",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1173727107l/318215._SX318_.jpg"
+  },
+  {
+    "name": "The Old Man and the Sea",
+    "description": "This short novel, already a modern classic, is the superbly told, tragic story of a Cuban fisherman in the Gulf Stream and the giant Marlin he kills and loses—specifically referred to in the citation accompanying the author's Nobel Prize for literature in 1954.",
+    "price": 10.19,
+    "quantity": 28,
+    "supplier": "Scribner ",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1329189714l/2165._SY475_.jpg"
+  }
+]
