@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
 import { FcGoogle } from "react-icons/fc";
 import {
@@ -25,6 +25,8 @@ const Login = () => {
     password: "",
   });
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleEmail = (e) => {
     const verifyEmail = /\S+@\S+\.\S+/.test(e.target.value);
@@ -71,7 +73,7 @@ const Login = () => {
     signInWithGoogle();
   };
   if (user || googleUser) {
-    navigate("/home");
+    navigate(from, { replace: true });
   }
   return (
     <div className="">
