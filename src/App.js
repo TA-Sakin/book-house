@@ -4,6 +4,7 @@ import Header from "./Components/Home/Header/Header";
 import Home from "./Components/Home/Home/Home";
 import Login from "./Components/Login/Login/Login";
 import SignUp from "./Components/Login/SignUp/SignUp";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (

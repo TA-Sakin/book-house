@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import auth from "../../../Firebase/firebase.init";
 import { Form } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
 
 const SignUp = () => {
-  //   const [createUserWithEmailAndPassword, user, loading, error] =
-  //     useCreateUserWithEmailAndPassword(auth);
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
   const [changeNameBorderColor, handleNameBorderColor] = useState(false);
   const [changeEmailBorderColor, handleEmailBorderColor] = useState(false);
   const [changePassBorderColor, handlePassBorderColor] = useState(false);
@@ -81,6 +82,7 @@ const SignUp = () => {
       }
     }
   };
+
   const handleConfirmPass = (e) => {
     if (e.target.value === info.password) {
       handleConfPassBorderColor(false);
@@ -92,18 +94,19 @@ const SignUp = () => {
       setInfo({ ...info, confirmPassword: "" });
     }
   };
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    // createUserWithEmailAndPassword(email, password);
+    await createUserWithEmailAndPassword(info.email, info.password);
+    toast.success(`Welcome ${info.name}!`);
+    e.target.reset();
   };
   return (
     <div className="">
       <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
         <h3 className="text-center my-3">Sign Up</h3>
-        <form className="">
+        <form onSubmit={handleSignUp}>
           <div className="form-group mb-2">
-            <label htmlFor="exampleInputEmail1">Name</label>
-
+            <label htmlFor="exampleInputName1">Name</label>
             <input
               onChange={handleName}
               type="name"
@@ -116,7 +119,7 @@ const SignUp = () => {
                 }
               )}
               className="form-control shadow-none"
-              id="exampleInputEmail1"
+              id="exampleInputName1"
               aria-describedby="nameHelp"
               placeholder="Enter name"
             />
@@ -178,7 +181,9 @@ const SignUp = () => {
             )}
           </div>
           <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Confirm password</label>
+            <label htmlFor="exampleInputConfirmPassword1">
+              Confirm password
+            </label>
             <input
               //   disabled={!info?.password}
               onChange={handleConfirmPass}
@@ -192,7 +197,7 @@ const SignUp = () => {
                 }
               )}
               className="form-control shadow-none"
-              id="exampleInputPassword1"
+              id="exampleInputConfirmPassword1"
               placeholder="Confirm password"
             />
           </div>
@@ -213,41 +218,41 @@ const SignUp = () => {
 
           <button
             disabled={!agree}
-            onSubmit={handleSignUp}
             type="submit"
             className="btn btn-primary rounded-pill w-100"
           >
             Sign Up
           </button>
-          <div className="mt-2">
-            <p>
-              Already have an account? <Link to="/login">Login</Link>
-            </p>
-          </div>
-          <div className="mt-3 d-flex align-items-center">
-            <div
-              style={{
-                display: "inline",
-                width: "50%",
-                borderBottom: "1px solid gray",
-              }}
-            ></div>
-            <span className="px-2 pb-1">or</span>
-            <div
-              style={{
-                display: "inline",
-                width: "50%",
-                borderBottom: "1px solid gray",
-              }}
-            ></div>
-          </div>
-          <button
-            type="submit"
-            className="btn btn-outline-dark rounded-pill w-100 mt-3"
-          >
-            <FcGoogle className="fs-5 "></FcGoogle> <b>Continue with Google</b>
-          </button>
         </form>
+        <div className="mt-2">
+          <p>
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+        </div>
+        <div className="mt-3 d-flex align-items-center">
+          <div
+            style={{
+              display: "inline",
+              width: "50%",
+              borderBottom: "1px solid gray",
+            }}
+          ></div>
+          <span className="px-2 pb-1">or</span>
+          <div
+            style={{
+              display: "inline",
+              width: "50%",
+              borderBottom: "1px solid gray",
+            }}
+          ></div>
+        </div>
+        <button
+          type="submit"
+          className="btn btn-outline-dark rounded-pill w-100 mt-3"
+        >
+          <FcGoogle className="fs-5 "></FcGoogle> <b>Continue with Google</b>
+        </button>
+        <ToastContainer />
       </div>
     </div>
   );
