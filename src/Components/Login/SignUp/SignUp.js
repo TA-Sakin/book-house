@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  useCreateUserWithEmailAndPassword,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import auth from "../../../Firebase/firebase.init";
 import { Form } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 
 const SignUp = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  const [signInWithGoogle, googleUser, googleLoading, googleError] =
+    useSignInWithGoogle(auth);
   const [changeNameBorderColor, handleNameBorderColor] = useState(false);
   const [changeEmailBorderColor, handleEmailBorderColor] = useState(false);
   const [changePassBorderColor, handlePassBorderColor] = useState(false);
   const [changeConfPassBorderColor, handleConfPassBorderColor] =
     useState(false);
+
   const [agree, setAgree] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
   const [info, setInfo] = useState({
     name: "",
     email: "",
@@ -27,6 +35,7 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    emptyError: "",
   });
   const handleName = (e) => {
     const verifyName = /^[a-z ,.'-]+$/i.test(e.target.value);
@@ -49,7 +58,6 @@ const SignUp = () => {
       setError({ ...errors, email: "" });
     } else {
       handleEmailBorderColor(true);
-
       setError({ ...errors, email: "Invalid email" });
       setInfo({ ...info, email: "" });
     }
@@ -94,12 +102,32 @@ const SignUp = () => {
       setInfo({ ...info, confirmPassword: "" });
     }
   };
+  const handleBorderColor = (bools) => {
+    handleNameBorderColor(bools);
+    handleEmailBorderColor(bools);
+    handlePassBorderColor(bools);
+    handleConfPassBorderColor(bools);
+  };
   const handleSignUp = async (e) => {
     e.preventDefault();
-    await createUserWithEmailAndPassword(info.email, info.password);
-    toast.success(`Welcome ${info.name}!`);
-    e.target.reset();
+    if (info.email && info.password && info.name && info.confirmPassword) {
+      setError({ ...errors, emptyError: "" });
+      handleBorderColor(false);
+      await createUserWithEmailAndPassword(info.email, info.password);
+      toast.success(`Welcome ${info.name}!`);
+      navigate("/home");
+      e.target.reset();
+    } else {
+      setError({ ...errors, emptyError: "Please provide valid information" });
+      handleBorderColor(true);
+    }
   };
+  const handleGoogleSignIn = () => {
+    signInWithGoogle();
+  };
+  if (googleUser) {
+    navigate("/home");
+  }
   return (
     <div className="">
       <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
@@ -188,7 +216,7 @@ const SignUp = () => {
               //   disabled={!info?.password}
               onChange={handleConfirmPass}
               name="confirmPassword"
-              type="confirmPassword"
+              type="Password"
               style={Object.assign(
                 {},
                 {
@@ -207,6 +235,12 @@ const SignUp = () => {
               {errors.confirmPassword}
             </p>
           )}
+          {errors?.emptyError && (
+            <p className="text-danger mt-3">
+              <AiOutlineExclamationCircle className="me-1" />
+              {errors?.emptyError}
+            </p>
+          )}
           <Form.Group className="mt-4 mb-2" controlId="formBasicCheckbox">
             <Form.Check
               onClick={() => setAgree(!agree)}
@@ -215,7 +249,6 @@ const SignUp = () => {
               label="Agree terms and conditions"
             />
           </Form.Group>
-
           <button
             disabled={!agree}
             type="submit"
@@ -249,6 +282,7 @@ const SignUp = () => {
         <button
           type="submit"
           className="btn btn-outline-dark rounded-pill w-100 mt-3"
+          onClick={handleGoogleSignIn}
         >
           <FcGoogle className="fs-5 "></FcGoogle> <b>Continue with Google</b>
         </button>
