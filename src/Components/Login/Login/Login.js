@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  const [changeEmailBorderColor, handleEmailBorderColor] = useState(false);
+  const [changePassBorderColor, handlePassBorderColor] = useState(false);
+  const [info, setInfo] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setError] = useState({
+    email: "",
+    password: "",
+  });
   return (
     <div className="">
       <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
