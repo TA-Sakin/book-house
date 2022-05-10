@@ -1,14 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "./Login.css";
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
-const Login = () => {
+const SignUp = () => {
   return (
     <div className="">
       <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
-        <h3 className="text-center my-3">Login</h3>
+        <h3 className="text-center my-3">Sign Up</h3>
         <form className="">
+          <div className="form-group mb-2">
+            <label for="exampleInputEmail1">Name</label>
+            <input
+              type="name"
+              className="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="nameHelp"
+              placeholder="Enter name"
+            />
+          </div>
           <div className="form-group mb-2">
             <label for="exampleInputEmail1">Email address</label>
             <input
@@ -28,21 +37,25 @@ const Login = () => {
               placeholder="Password"
             />
           </div>
-          <div>
-            <b className="forgotPass">Forgot your password?</b>
+          <div className="form-group">
+            <label for="exampleInputPassword1">Confirm password</label>
+            <input
+              type="confirmPassword"
+              className="form-control"
+              id="exampleInputPassword1"
+              placeholder="Confirm password"
+            />
           </div>
-          <div className="mt-4">
+          <div className="mt-5">
             <p>
-              Don't have an account
-              <Link to="/signup"> Sign Up</Link>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </div>
-
           <button
             type="submit"
             className="btn btn-outline-primary rounded-pill w-100"
           >
-            Login
+            Sign Up
           </button>
 
           <div className="mt-3 d-flex align-items-center">
@@ -74,4 +87,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;
