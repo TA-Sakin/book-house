@@ -10,7 +10,7 @@ const Header = () => {
     signOut(auth);
   };
   return (
-    <div>
+    <div className="sticky-top">
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand as={Link} to="/">
