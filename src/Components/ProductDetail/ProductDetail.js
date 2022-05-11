@@ -17,12 +17,12 @@ const ProductDetail = () => {
     return <Spinner></Spinner>;
   }
 
-  const updateQuantity = (quantity, toastMessage) => {
-    if (quantity === 0) {
+  const updateQuantity = (quantity, toastMessage, sold) => {
+    if (quantity === -1) {
       return toast.error("Stock is empty");
     }
-    console.log("updateQuantity", quantity);
-    const updateQuantity = { quantity };
+    const updateQuantity = { quantity, sold };
+    console.log("upqua", updateQuantity);
     fetch(`http://localhost:5000/books/${id}`, {
       method: "PUT",
       headers: { "Content-type": "application/json" },
@@ -30,23 +30,25 @@ const ProductDetail = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setBook({ ...book, quantity: quantity });
+        setBook({ ...book, quantity: quantity, sold: sold });
         toast(toastMessage);
       });
   };
   const handleDelivered = () => {
     let quantity = book.quantity;
     quantity = quantity - 1;
-    updateQuantity(quantity, "Book delivered");
+    let sold = book.sold + 1;
+    updateQuantity(quantity, "Book delivered", sold);
   };
   const handleRestock = (e) => {
     e.preventDefault();
     const restockBook = parseInt(e.target.restock.value);
-    console.log("restock", restockBook);
-    let quantity = book.quantity;
-    quantity = quantity + restockBook;
-    updateQuantity(quantity, "Book added to the stock");
-    e.target.reset();
+    if (restockBook) {
+      let quantity = book.quantity;
+      quantity = quantity + restockBook;
+      updateQuantity(quantity, "Book added to the stock", book.sold);
+      e.target.reset();
+    }
   };
 
   return (
@@ -67,6 +69,7 @@ const ProductDetail = () => {
               <p className="card-text">Supplier: {book.supplier}</p>
               <p className="card-text">Price: ${book.price}</p>
               <p className="card-text">Quantity: {book.quantity}</p>
+              <p className="card-text">Sold: {book.sold}</p>
               <button className="btn btn-primary" onClick={handleDelivered}>
                 Delivered
               </button>
