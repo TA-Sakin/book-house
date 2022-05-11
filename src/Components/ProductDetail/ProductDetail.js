@@ -16,11 +16,13 @@ const ProductDetail = () => {
   if (book.length === 0) {
     return <Spinner></Spinner>;
   }
-  const handleDelivered = () => {
-    let quantity = book.quantity;
-    quantity = quantity + 1;
-    const updateQuantity = { quantity };
 
+  const updateQuantity = (quantity, toastMessage) => {
+    if (quantity === 0) {
+      return toast.error("Stock is empty");
+    }
+    console.log("updateQuantity", quantity);
+    const updateQuantity = { quantity };
     fetch(`http://localhost:5000/books/${id}`, {
       method: "PUT",
       headers: { "Content-type": "application/json" },
@@ -29,9 +31,24 @@ const ProductDetail = () => {
       .then((res) => res.json())
       .then((data) => {
         setBook({ ...book, quantity: quantity });
-        toast("One more book added");
+        toast(toastMessage);
       });
   };
+  const handleDelivered = () => {
+    let quantity = book.quantity;
+    quantity = quantity - 1;
+    updateQuantity(quantity, "Book delivered");
+  };
+  const handleRestock = (e) => {
+    e.preventDefault();
+    const restockBook = parseInt(e.target.restock.value);
+    console.log("restock", restockBook);
+    let quantity = book.quantity;
+    quantity = quantity + restockBook;
+    updateQuantity(quantity, "Book added to the stock");
+    e.target.reset();
+  };
+
   return (
     <div className="container mt-5" style={{ minHeight: "66vh" }}>
       <div className="card mb-3 mx-auto" style={{ maxWidth: "800px" }}>
@@ -56,6 +73,20 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="text-center">
+        <form onSubmit={handleRestock}>
+          <input
+            type="number"
+            placeholder="Restock the book"
+            name="restock"
+            id=""
+            style={{ width: "150px" }}
+          />
+          <button type="submit" className="btn btn-success py-1 ms-2">
+            Restock
+          </button>
+        </form>
       </div>
       <ToastContainer></ToastContainer>
     </div>
