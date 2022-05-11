@@ -4,7 +4,7 @@ import Banner from "../Banner/Banner";
 import Contact from "../Contact/Contact";
 import Footer from "../Footer/Footer";
 import Products from "../Products/Products";
-
+import Spinner from "../../Spinner/Spinner";
 const Home = () => {
   return (
     <div>
@@ -12,7 +12,6 @@ const Home = () => {
       <About></About>
       <Products></Products>
       <Contact></Contact>
-      <Footer></Footer>
     </div>
   );
 };
