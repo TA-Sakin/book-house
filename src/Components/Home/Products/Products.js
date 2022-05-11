@@ -32,12 +32,19 @@ const Products = () => {
                 <p>Price: ${product.price}</p>
                 <p>Quantity: {product.quantity}</p>
               </div>
-              <Link to={`/books/${product._id}`}>
+              <Link to={`/inventory/${product._id}`}>
                 <button className="btn btn-primary w-100">Update</button>
               </Link>
             </div>
           );
         })}
+      </div>
+      <div className="text-center">
+        <Link to={`/manageinventory`}>
+          <button className="border-0 py-2 px-5 btn-success my-5">
+            Manage Inventory
+          </button>
+        </Link>
       </div>
     </div>
   );

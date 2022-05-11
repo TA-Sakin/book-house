@@ -10,6 +10,9 @@ import RequireAuth from "./Components/RequireAuth/RequireAuth";
 import Blog from "./Components/Blog/Blog";
 import NotFound from "./Components/NotFound/NotFound";
 import Footer from "./Components/Home/Footer/Footer";
+import ManageBooks from "./Components/ManageBooks/ManageBooks/ManageBooks";
+import MyBooks from "./Components/ManageBooks/MyBooks/MyBooks";
+import AddBook from "./Components/ManageBooks/AddBooks/AddBook";
 function App() {
   return (
     <div>
@@ -21,10 +24,34 @@ function App() {
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
         <Route
-          path="/books/:id"
+          path="/inventory/:id"
           element={
             <RequireAuth>
               <ProductDetail></ProductDetail>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/manageinventory"
+          element={
+            <RequireAuth>
+              <ManageBooks></ManageBooks>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="addbook"
+          element={
+            <RequireAuth>
+              <AddBook></AddBook>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="mybooks"
+          element={
+            <RequireAuth>
+              <MyBooks></MyBooks>
             </RequireAuth>
           }
         ></Route>

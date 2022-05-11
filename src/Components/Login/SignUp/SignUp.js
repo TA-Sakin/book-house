@@ -115,7 +115,7 @@ const SignUp = () => {
       handleBorderColor(false);
       await createUserWithEmailAndPassword(info.email, info.password);
       toast.success(`Welcome ${info.name}!`);
-      navigate("/home");
+      // navigate("/home");
       e.target.reset();
     } else {
       setError({ ...errors, emptyError: "Please provide valid information" });
@@ -125,7 +125,7 @@ const SignUp = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle();
   };
-  if (googleUser) {
+  if (user || googleUser) {
     navigate("/home");
   }
   return (

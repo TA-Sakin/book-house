@@ -53,6 +53,7 @@ const ProductDetail = () => {
 
   return (
     <div className="container mt-5" style={{ minHeight: "66vh" }}>
+      <h3 className="text-center mb-4">Update the book's stock</h3>
       <div className="card mb-3 mx-auto" style={{ maxWidth: "800px" }}>
         <div className="row g-0">
           <div className="col-md-5">
@@ -78,13 +79,14 @@ const ProductDetail = () => {
         </div>
       </div>
       <div className="text-center">
+        <h3 className="my-3">Restock the book</h3>
         <form onSubmit={handleRestock}>
           <input
             type="number"
-            placeholder="Restock the book"
+            placeholder="Enter quantity"
             name="restock"
             id=""
-            style={{ width: "150px" }}
+            // style={{ width: "150px" }}
           />
           <button type="submit" className="btn btn-success py-1 ms-2">
             Restock

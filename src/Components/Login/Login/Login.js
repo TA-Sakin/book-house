@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
 import { FcGoogle } from "react-icons/fc";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
+  useSendPasswordResetEmail,
 } from "react-firebase-hooks/auth";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import auth from "../../../Firebase/firebase.init";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [changeEmailBorderColor, handleEmailBorderColor] = useState(false);
   const [changePassBorderColor, handlePassBorderColor] = useState(false);
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+  const [sendPasswordResetEmail, sending, passwordError] =
+    useSendPasswordResetEmail(auth);
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
   const [info, setInfo] = useState({
@@ -65,13 +69,45 @@ const Login = () => {
       }
     }
   };
-  const handleLogin = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(info.email, info.password);
-  };
   const handleGoogleSignIn = () => {
     signInWithGoogle();
   };
+  const handleResetPassword = async () => {
+    console.log(info.email);
+    if (info.email) {
+      console.log(info.email);
+      await sendPasswordResetEmail(info.email);
+      toast("Sent email");
+    } else {
+      toast("Please enter a valid email");
+    }
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(info.email, info.password);
+  };
+  useEffect(() => {
+    if (error) {
+      switch (error?.code) {
+        case "auth/user-not-found":
+          // setError({
+          //   ...errors,
+          //   email: "No user found using that email",
+          // });
+          // setInfo({ ...info, email: "" });
+          toast.error("Email not registered");
+          break;
+        case "auth/wrong-password":
+          // setError({ ...errors, password: "Wrong password" });
+          // setInfo({ ...info, password: "" });
+          toast.error("Wrong password! try again.");
+          break;
+        default:
+          toast.error("Something went wrong");
+          break;
+      }
+    }
+  }, [error]);
   if (user || googleUser) {
     navigate(from, { replace: true });
   }
@@ -127,7 +163,7 @@ const Login = () => {
               </p>
             )}
           </div>
-          <div>
+          <div onClick={handleResetPassword}>
             <b className="forgotPass">Forgot your password?</b>
           </div>
           <div className="mt-4">
@@ -169,6 +205,7 @@ const Login = () => {
             <FcGoogle className="fs-5 "></FcGoogle> <b>Continue with Google</b>
           </button>
         </form>
+        <ToastContainer></ToastContainer>
       </div>
     </div>
   );
