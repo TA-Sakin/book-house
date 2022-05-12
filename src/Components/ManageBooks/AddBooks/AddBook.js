@@ -5,9 +5,6 @@ import { toast, ToastContainer } from "react-toastify";
 
 const AddBook = () => {
   const [user, loading, error] = useAuthState(auth);
-  // if (user) {
-  //   console.log(user);
-  // }
   const handleAddBook = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -15,8 +12,8 @@ const AddBook = () => {
     const description = e.target.description.value;
     const supplierName = e.target.supplierName.value;
     const price = e.target.price.value;
-    const quantity = e.target.quantity.value;
-    const sold = e.target.sold.value;
+    const quantity = parseInt(e.target.quantity.value);
+    const sold = parseInt(e.target.sold.value);
     const image = e.target.image.value;
     fetch("http://localhost:5000/addbook", {
       method: "POST",
@@ -43,7 +40,6 @@ const AddBook = () => {
   return (
     <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
       <h3 className="text-center my-3">Add new book in the inventory</h3>
-
       <form onSubmit={handleAddBook}>
         <div className="form-group mb-2">
           <input
@@ -64,6 +60,7 @@ const AddBook = () => {
             id="exampleInputText"
             aria-describedby="textHelp"
             placeholder="Book name"
+            required
           />
         </div>
         <div className="form-group mb-2">
@@ -88,12 +85,13 @@ const AddBook = () => {
         </div>
         <div className="form-group mb-2">
           <input
-            type="number"
+            type="text"
             name="price"
             className="form-control shadow-none"
-            id="exampleInputNumber"
-            aria-describedby="numberHelp"
+            id="exampleInputText"
+            aria-describedby="textHelp"
             placeholder="Book's price"
+            required
           />
         </div>
         <div className="form-group mb-2">
@@ -104,6 +102,7 @@ const AddBook = () => {
             id="exampleInputNumber"
             aria-describedby="numberHelp"
             placeholder="How many book?"
+            required
           />
         </div>
         <div className="form-group mb-2">
@@ -114,6 +113,7 @@ const AddBook = () => {
             id="exampleInputNumber"
             aria-describedby="numberHelp"
             placeholder="How many books sold?"
+            required
           />
         </div>
         <div className="form-group mb-2">
@@ -124,6 +124,7 @@ const AddBook = () => {
             id="exampleInputNumber"
             aria-describedby="numberHelp"
             placeholder="Enter a book's image url"
+            required
           />
         </div>
 

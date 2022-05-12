@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Spinner from "../../Spinner/Spinner";
 const Products = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/books")
+    fetch("http://localhost:5000/homebooks")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
+  // if (products.length === 0) {
+  //   return <Spinner></Spinner>;
+  // }
   return (
     <div className="container">
       <h1 className="text-center mt-5 mb-3">Popular Books</h1>
+      {products.length === 0 ? <Spinner></Spinner> : ""}
       <div className="row">
-        {products.map((product,index) => {
+        {products.map((product, index) => {
           return (
             <div
               className="col-lg-4 col-md-6 mx-auto card border-0 g-5"
@@ -41,8 +46,8 @@ const Products = () => {
       </div>
       <div className="text-center">
         <Link to={`/manageinventory`}>
-          <button className="border-0 py-2 px-5 btn-success my-5">
-            Manage Inventory
+          <button className="border-0 py-3 px-5 btn-dark my-5">
+            <b>Manage Inventory </b>
           </button>
         </Link>
       </div>

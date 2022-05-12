@@ -35,9 +35,9 @@ const ProductDetail = () => {
       });
   };
   const handleDelivered = () => {
-    let quantity = book.quantity;
+    let quantity = parseInt(book.quantity);
     quantity = quantity - 1;
-    let sold = book.sold + 1;
+    let sold = parseInt(book.sold) + 1;
     updateQuantity(quantity, "Book delivered", sold);
   };
   const handleRestock = (e) => {

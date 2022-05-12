@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import Spinner from "../../Spinner/Spinner";
 import { AiFillDelete } from "react-icons/ai";
 import { MdAdd } from "react-icons/md";
+import { toast, ToastContainer } from "react-toastify";
+
 const ManageBooks = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
@@ -11,12 +13,29 @@ const ManageBooks = () => {
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
-
   if (products.length === 0) {
     return <Spinner></Spinner>;
   }
+  const handleDelete = (id) => {
+    const confirm = window.confirm("Are you sure?");
+    if (confirm) {
+      fetch(`http://localhost:5000/books/${id}`, {
+        method: "DELETE",
+        body: JSON.stringify({}),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          toast.success("Book Deleted");
+          const remaining = products.filter((product) => product._id !== id);
+          setProducts(remaining);
+        });
+    }
+  };
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{ minHeight: "66vh" }}>
       <Link to="/addbook">
         <button className="btn-dark border-0 px-5 py-2">
           <b>
@@ -24,7 +43,7 @@ const ManageBooks = () => {
           </b>
         </button>
       </Link>
-      <table class="table table-hover">
+      <table className="table table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -37,15 +56,18 @@ const ManageBooks = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => {
+          {products.map((product, index) => {
             return (
               <tr>
-                <th scope="row">1</th>
+                <th scope="row">{index + 1}</th>
                 <td className="w-50">{product.name}</td>
                 <td>{product.price}</td>
                 <td>{product.quantity}</td>
                 <td>{product.sold}</td>
-                <button className="border-0 btn bg-danger">
+                <button
+                  onClick={() => handleDelete(product._id)}
+                  className="border-0 btn bg-danger shadow-none"
+                >
                   <AiFillDelete className="fs-5"></AiFillDelete> Delete
                 </button>
               </tr>
@@ -53,6 +75,7 @@ const ManageBooks = () => {
           })}
         </tbody>
       </table>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
