@@ -33,7 +33,7 @@ const Products = () => {
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
                 <p className="card-text">{product.description}</p>
-                <p>Publisher: {product.supplier}</p>
+                <p>Publisher: {product.supplierName}</p>
                 <p>Price: ${product.price}</p>
                 <p>Quantity: {product.quantity}</p>
               </div>

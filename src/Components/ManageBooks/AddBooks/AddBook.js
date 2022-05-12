@@ -39,7 +39,7 @@ const AddBook = () => {
   };
   return (
     <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
-      <h3 className="text-center my-3">Add new book in the inventory</h3>
+      <h3 className="text-center my-3">Add new book to the inventory</h3>
       <form onSubmit={handleAddBook}>
         <div className="form-group mb-2">
           <input

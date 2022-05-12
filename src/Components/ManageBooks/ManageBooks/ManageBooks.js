@@ -50,6 +50,7 @@ const ManageBooks = () => {
             <th scope="col" className="w-50">
               Name
             </th>
+            <th scope="col">Supplier</th>
             <th scope="col">Price</th>
             <th scope="col">Stock</th>
             <th scope="col">Sold</th>
@@ -61,7 +62,8 @@ const ManageBooks = () => {
               <tr>
                 <th scope="row">{index + 1}</th>
                 <td className="w-50">{product.name}</td>
-                <td>{product.price}</td>
+                <td>{product.supplierName}</td>
+                <td>${product.price}</td>
                 <td>{product.quantity}</td>
                 <td>{product.sold}</td>
                 <button
@@ -70,6 +72,11 @@ const ManageBooks = () => {
                 >
                   <AiFillDelete className="fs-5"></AiFillDelete> Delete
                 </button>
+                <Link to={`/inventory/${product._id}`}>
+                  <button className="border-0 btn bg-primary shadow-none">
+                    Update
+                  </button>
+                </Link>
               </tr>
             );
           })}

@@ -10,6 +10,7 @@ import {
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import auth from "../../../Firebase/firebase.init";
 import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const [changeEmailBorderColor, handleEmailBorderColor] = useState(false);
@@ -73,42 +74,67 @@ const Login = () => {
     signInWithGoogle();
   };
   const handleResetPassword = async () => {
-    console.log(info.email);
-    if (info.email) {
-      console.log(info.email);
+    if (info.email && !passwordError) {
       await sendPasswordResetEmail(info.email);
-      toast("Sent email");
-    } else {
-      toast("Please enter a valid email");
+      toast("Sending email");
+    } else if (passwordError === undefined || passwordError) {
+      toast.error(
+        passwordError === undefined
+          ? "Missing email"
+          : `${(passwordError?.code).slice(5)}`
+      );
     }
   };
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(info.email, info.password);
+    await signInWithEmailAndPassword(info.email, info.password);
+    const { data } = await axios.post("http://localhost:5000/login", {
+      email: info.email,
+    });
+    localStorage.setItem("accessToken", data.accessToken);
+    navigate(from, { replace: true });
   };
   useEffect(() => {
     if (error) {
       switch (error?.code) {
         case "auth/user-not-found":
-          // setError({
-          //   ...errors,
-          //   email: "No user found using that email",
-          // });
-          // setInfo({ ...info, email: "" });
-          toast.error("Email not registered");
+          setError((errors) => ({
+            ...errors,
+            email: "Email not registered",
+          }));
+          setInfo({ ...info, email: "" });
           break;
         case "auth/wrong-password":
-          // setError({ ...errors, password: "Wrong password" });
-          // setInfo({ ...info, password: "" });
-          toast.error("Wrong password! try again.");
+          setError((errors) => ({ ...errors, password: "Wrong password" }));
+          setInfo((info) => ({ ...info, password: "" }));
           break;
         default:
-          toast.error("Something went wrong");
+          toast.error("Provide valid information");
           break;
       }
     }
+    // if (error) {
+    //   switch (error?.code) {
+    //     case "auth/user-not-found":
+    //       // setError({
+    //       //   ...errors,
+    //       //   email: "No user found using that email",
+    //       // });
+    //       // setInfo({ ...info, email: "" });
+    //       toast.error("Email not registered");
+    //       break;
+    //     case "auth/wrong-password":
+    //       // setError({ ...errors, password: "Wrong password" });
+    //       // setInfo({ ...info, password: "" });
+    //       toast.error("Wrong password! try again.");
+    //       break;
+    //     default:
+    //       toast.error("Enter valid information");
+    //       break;
+    //   }
+    // }
   }, [error]);
-  if (user || googleUser) {
+  if (googleUser) {
     navigate(from, { replace: true });
   }
   return (
@@ -132,6 +158,7 @@ const Login = () => {
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter email"
+              required
             />
             {errors?.email && (
               <p className="text-danger ">
@@ -155,6 +182,7 @@ const Login = () => {
               className="form-control shadow-none"
               id="exampleInputPassword1"
               placeholder="Password"
+              required
             />
             {errors?.password && (
               <p className="text-danger ">
@@ -197,14 +225,14 @@ const Login = () => {
               }}
             ></div>
           </div>
-          <button
-            type="submit"
-            className="btn btn-outline-dark rounded-pill w-100 mt-3"
-            onClick={handleGoogleSignIn}
-          >
-            <FcGoogle className="fs-5 "></FcGoogle> <b>Continue with Google</b>
-          </button>
         </form>
+        <button
+          type="submit"
+          className="btn btn-outline-dark rounded-pill w-100 mt-3"
+          onClick={handleGoogleSignIn}
+        >
+          <FcGoogle className="fs-5 "></FcGoogle> <b>Continue with Google</b>
+        </button>
         <ToastContainer></ToastContainer>
       </div>
     </div>
