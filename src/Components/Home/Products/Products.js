@@ -11,7 +11,7 @@ const Products = () => {
     <div className="container">
       <h1 className="text-center mt-5 mb-3">Popular Books</h1>
       <div className="row">
-        {products.map((product) => {
+        {products.map((product,index) => {
           return (
             <div
               className="col-lg-4 col-md-6 mx-auto card border-0 g-5"

@@ -82,7 +82,7 @@ const Login = () => {
       toast("Please enter a valid email");
     }
   };
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(info.email, info.password);
   };
