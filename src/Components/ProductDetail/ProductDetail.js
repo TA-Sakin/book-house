@@ -8,7 +8,7 @@ const ProductDetail = () => {
   const [book, setBook] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/books/${id}`)
+    fetch(`https://secure-mesa-81244.herokuapp.com/books/${id}`)
       .then((res) => res.json())
       .then((data) => setBook(data));
   }, [id]);
@@ -22,8 +22,7 @@ const ProductDetail = () => {
       return toast.error("Stock is empty");
     }
     const updateQuantity = { quantity, sold };
-    console.log("upqua", updateQuantity);
-    fetch(`http://localhost:5000/books/${id}`, {
+    fetch(`https://secure-mesa-81244.herokuapp.com/books/${id}`, {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(updateQuantity),

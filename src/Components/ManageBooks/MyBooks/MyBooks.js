@@ -20,7 +20,7 @@ const MyBooks = () => {
       const email = user.email;
       try {
         const { data } = await axios.get(
-          `http://localhost:5000/mybooks?email=${email}`,
+          `https://secure-mesa-81244.herokuapp.com/mybooks?email=${email}`,
           {
             headers: {
               authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -43,7 +43,7 @@ const MyBooks = () => {
   const handleDelete = (id) => {
     const confirm = window.confirm("Are you sure?");
     if (confirm) {
-      fetch(`http://localhost:5000/books/${id}`, {
+      fetch(`https://secure-mesa-81244.herokuapp.com/books/${id}`, {
         method: "DELETE",
         body: JSON.stringify({}),
         headers: {

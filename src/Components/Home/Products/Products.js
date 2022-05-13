@@ -4,13 +4,10 @@ import Spinner from "../../Spinner/Spinner";
 const Products = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/homebooks")
+    fetch("https://secure-mesa-81244.herokuapp.com/homebooks")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
-  // if (products.length === 0) {
-  //   return <Spinner></Spinner>;
-  // }
   return (
     <div className="container">
       <h1 className="text-center mt-5 mb-3">Popular Books</h1>

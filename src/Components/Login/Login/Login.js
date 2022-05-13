@@ -88,7 +88,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     await signInWithEmailAndPassword(info.email, info.password);
-    const { data } = await axios.post("http://localhost:5000/login", {
+    const { data } = await axios.post("https://secure-mesa-81244.herokuapp.com/login", {
       email: info.email,
     });
     localStorage.setItem("accessToken", data.accessToken);

@@ -15,7 +15,7 @@ const AddBook = () => {
     const quantity = parseInt(e.target.quantity.value);
     const sold = parseInt(e.target.sold.value);
     const image = e.target.image.value;
-    fetch("http://localhost:5000/addbook", {
+    fetch("https://secure-mesa-81244.herokuapp.com/addbook", {
       method: "POST",
       body: JSON.stringify({
         email,

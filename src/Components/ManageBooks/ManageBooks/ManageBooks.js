@@ -9,7 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 const ManageBooks = () => {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/books")
+    fetch("https://secure-mesa-81244.herokuapp.com/books")
       .then((res) => res.json())
       .then((data) => setProducts(data));
   }, []);
@@ -19,7 +19,7 @@ const ManageBooks = () => {
   const handleDelete = (id) => {
     const confirm = window.confirm("Are you sure?");
     if (confirm) {
-      fetch(`http://localhost:5000/books/${id}`, {
+      fetch(`https://secure-mesa-81244.herokuapp.com/books/${id}`, {
         method: "DELETE",
         body: JSON.stringify({}),
         headers: {
