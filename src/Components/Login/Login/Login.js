@@ -88,7 +88,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     await signInWithEmailAndPassword(info.email, info.password);
-    const { data } = await axios.post("https://secure-mesa-81244.herokuapp.com/login", {
+    const { data } = await axios.post("http://localhost:5000/login", {
       email: info.email,
     });
     localStorage.setItem("accessToken", data.accessToken);
@@ -98,18 +98,18 @@ const Login = () => {
     if (error) {
       switch (error?.code) {
         case "auth/user-not-found":
-          setError((errors) => ({
+          setError(errors => ({
             ...errors,
-            email: "Email not registered",
+            email: "No user found using that email",
           }));
-          setInfo({ ...info, email: "" });
+          setInfo(info => ({ ...info, email: "" }));
           break;
         case "auth/wrong-password":
-          setError((errors) => ({ ...errors, password: "Wrong password" }));
-          setInfo((info) => ({ ...info, password: "" }));
+          setError(errors => ({ ...errors, password: "Wrong password" }));
+          setInfo(info => ({ ...info, email: "" }));
           break;
         default:
-          toast.error("Provide valid information");
+          toast.error("Something went wrong");
           break;
       }
     }
