@@ -67,7 +67,7 @@ const ProductDetail = () => {
             <div className="card-body">
               <h5 className="card-title">{book.name}</h5>
               <p className="card-text">{book.description}</p>
-              <p className="card-text">Supplier: {book.supplier}</p>
+              <p className="card-text">Supplier: {book.supplierName}</p>
               <p className="card-text">Price: ${book.price}</p>
               <p className="card-text">Quantity: {book.quantity}</p>
               <p className="card-text">Sold: {book.sold}</p>

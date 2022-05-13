@@ -110,13 +110,20 @@ const SignUp = () => {
   };
   const handleSignUp = async (e) => {
     e.preventDefault();
-    if (info.email && info.password && info.name && info.confirmPassword) {
+    if (error) {
+      console.log(info.email);
+      toast.error(`${error.code.slice(5)}`);
+      console.log(error.code.slice(5));
+    } else if (
+      info.email &&
+      info.password &&
+      info.name &&
+      info.confirmPassword
+    ) {
       setError({ ...errors, emptyError: "" });
       handleBorderColor(false);
       await createUserWithEmailAndPassword(info.email, info.password);
-      toast.success(`Welcome ${info.name}!`);
-      // navigate("/home");
-      e.target.reset();
+      // e.target.reset();
     } else {
       setError({ ...errors, emptyError: "Please provide valid information" });
       handleBorderColor(true);
@@ -126,8 +133,10 @@ const SignUp = () => {
     signInWithGoogle();
   };
   if (user || googleUser) {
+    toast.success(`Welcome ${info.name}!`);
     navigate("/home");
   }
+
   return (
     <div className="">
       <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
