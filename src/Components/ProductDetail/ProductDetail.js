@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Spinner from "../Spinner/Spinner";
+import { Link } from "react-router-dom";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -85,12 +86,17 @@ const ProductDetail = () => {
             placeholder="Enter quantity"
             name="restock"
             id=""
-            // style={{ width: "150px" }}
+            
           />
           <button type="submit" className="btn btn-success py-1 ms-2">
             Restock
           </button>
         </form>
+        <Link to={`/manageinventory`}>
+          <button className="border-0 py-3 px-5 btn-dark my-5">
+            <b>Manage Inventory </b>
+          </button>
+        </Link>
       </div>
       <ToastContainer></ToastContainer>
     </div>
