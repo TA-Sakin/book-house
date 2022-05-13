@@ -138,7 +138,7 @@ const Login = () => {
     navigate(from, { replace: true });
   }
   return (
-    <div className="">
+    <div style={{ minHeight: "62vh" }}>
       <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
         <h3 className="text-center my-3">Login</h3>
         <form onSubmit={handleLogin}>
@@ -205,7 +205,7 @@ const Login = () => {
             type="submit"
             className="btn btn-outline-primary rounded-pill w-100"
           >
-            Login
+            <b>Login</b>
           </button>
 
           <div className="mt-3 d-flex align-items-center">

@@ -254,7 +254,7 @@ const SignUp = () => {
             type="submit"
             className="btn btn-primary rounded-pill w-100"
           >
-            Sign Up
+            <b>Sign Up</b>
           </button>
         </form>
         <div className="mt-2">

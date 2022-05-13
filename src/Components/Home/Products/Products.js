@@ -38,7 +38,7 @@ const Products = () => {
                 <p>Quantity: {product.quantity}</p>
               </div>
               <Link to={`/inventory/${product._id}`}>
-                <button className="btn btn-primary w-100">Update</button>
+                <button className="btn btn-primary w-100">Update Stock</button>
               </Link>
             </div>
           );

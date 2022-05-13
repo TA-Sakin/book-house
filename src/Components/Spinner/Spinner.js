@@ -4,7 +4,7 @@ const Spinner = () => {
   return (
     <div style={{ minHeight: "73vh" }}>
       <div className="d-flex justify-content-center py-5">
-        <div className="spinner-border" role="status"></div>
+        <div className="spinner-border  mt-4" role="status"></div>
       </div>
     </div>
   );
