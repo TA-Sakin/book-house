@@ -100,7 +100,7 @@ const Login = () => {
         case "auth/user-not-found":
           setError(errors => ({
             ...errors,
-            email: "No user found using that email",
+            email: "Email not registered",
           }));
           setInfo(info => ({ ...info, email: "" }));
           break;
@@ -113,26 +113,6 @@ const Login = () => {
           break;
       }
     }
-    // if (error) {
-    //   switch (error?.code) {
-    //     case "auth/user-not-found":
-    //       // setError({
-    //       //   ...errors,
-    //       //   email: "No user found using that email",
-    //       // });
-    //       // setInfo({ ...info, email: "" });
-    //       toast.error("Email not registered");
-    //       break;
-    //     case "auth/wrong-password":
-    //       // setError({ ...errors, password: "Wrong password" });
-    //       // setInfo({ ...info, password: "" });
-    //       toast.error("Wrong password! try again.");
-    //       break;
-    //     default:
-    //       toast.error("Enter valid information");
-    //       break;
-    //   }
-    // }
   }, [error]);
   if (googleUser) {
     navigate(from, { replace: true });
