@@ -43,7 +43,7 @@ const ManageBooks = () => {
           </b>
         </button>
       </Link>
-      <table className="table table-hover">
+      <Table responsive='sm' className="table table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -81,7 +81,7 @@ const ManageBooks = () => {
             );
           })}
         </tbody>
-      </table>
+      </Table>
       <ToastContainer></ToastContainer>
     </div>
   );
