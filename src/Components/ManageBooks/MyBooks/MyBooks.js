@@ -37,9 +37,9 @@ const MyBooks = () => {
     };
     getBooks();
   });
-  if (books.length === 0) {
-    return <Spinner></Spinner>;
-  }
+  // if (books.length === 0) {
+  //   return <Spinner></Spinner>;
+  // }
   const handleDelete = (id) => {
     const confirm = window.confirm("Are you sure?");
     if (confirm) {
@@ -53,6 +53,7 @@ const MyBooks = () => {
         .then((response) => response.json())
         .then((data) => {
           toast.success("Book Deleted");
+
           const remaining = books.filter((book) => book._id !== id);
           setBooks(remaining);
         });
@@ -60,6 +61,7 @@ const MyBooks = () => {
   };
   return (
     <div className="container mt-5" style={{ minHeight: "66vh" }}>
+      <h3 className="text-center mt-5 mb-3">You have added {books.length} books.</h3>
       <Link to="/addbook">
         <button className="btn-dark border-0 px-5 py-2">
           <b>
@@ -83,6 +85,7 @@ const MyBooks = () => {
         <tbody>
           {books.map((book, index) => {
             return (
+              <>
               <tr>
                 <th scope="row">{index + 1}</th>
                 <td className="w-50">{book.name}</td>
@@ -92,16 +95,17 @@ const MyBooks = () => {
                 <td>{book.sold}</td>
                 <button
                   onClick={() => handleDelete(book._id)}
-                  className="border-0 btn bg-danger shadow-none"
+                  className="border-0 btn bg-danger my-1 shadow-none"
                 >
                   <AiFillDelete className="fs-5"></AiFillDelete> Delete
                 </button>
                 <Link to={`/inventory/${book._id}`}>
-                  <button className="border-0 btn bg-primary shadow-none">
+                  <button className="border-0 btn bg-info shadow-none">
                     Update
                   </button>
                 </Link>
               </tr>
+                </>
             );
           })}
         </tbody>

@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
-  useSendPasswordResetEmail,
+  useSendPasswordResetEmail,useAuthState
 } from "react-firebase-hooks/auth";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import auth from "../../../Firebase/firebase.init";
@@ -15,12 +15,14 @@ import axios from "axios";
 const Login = () => {
   const [changeEmailBorderColor, handleEmailBorderColor] = useState(false);
   const [changePassBorderColor, handlePassBorderColor] = useState(false);
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [signInWithEmailAndPassword, signInUser, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail, sending, passwordError] =
     useSendPasswordResetEmail(auth);
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
+  const [user] = useAuthState(auth);
+
   const [info, setInfo] = useState({
     email: "",
     password: "",
@@ -71,8 +73,9 @@ const Login = () => {
     }
   };
   const handleGoogleSignIn = () => {
-    signInWithGoogle();
-  };
+     signInWithGoogle();
+};
+
   const handleResetPassword = async () => {
     if (info.email && !passwordError) {
       await sendPasswordResetEmail(info.email);
@@ -88,12 +91,19 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     await signInWithEmailAndPassword(info.email, info.password);
-    const { data } = await axios.post("http://localhost:5000/login", {
-      email: info.email,
-    });
-    localStorage.setItem("accessToken", data.accessToken);
-    navigate(from, { replace: true });
   };
+  if(user){
+    const getToken = async ()=>{
+      const { data } = await axios.post("https://secure-mesa-81244.herokuapp.com/login", {
+        email: user.email,
+    });
+    if(data){
+      localStorage.setItem("accessToken", data.accessToken);
+      navigate(from, { replace: true });
+    }
+  }
+  getToken()
+  }
   useEffect(() => {
     if (error) {
       switch (error?.code) {
@@ -114,9 +124,7 @@ const Login = () => {
       }
     }
   }, [error]);
-  if (googleUser) {
-    navigate(from, { replace: true });
-  }
+  
   return (
     <div style={{ minHeight: "62vh" }}>
       <div className="mx-auto col-sm-6 col-lg-4 px-5 mt-5">
@@ -171,9 +179,9 @@ const Login = () => {
               </p>
             )}
           </div>
-          <div onClick={handleResetPassword}>
+          <span onClick={handleResetPassword}>
             <b className="forgotPass">Forgot your password?</b>
-          </div>
+          </span>
           <div className="mt-4">
             <p>
               Don't have an account
